@@ -33,10 +33,8 @@ class CalculateStats extends Command
         $command = "sudo /usr/local/bin/xray api statsquery --server=127.0.0.1:8082 -pattern '' -reset";
         $output = shell_exec($command);
 
-        Log::info($output);
-
         $users = [];
-        foreach ($output as $item) {
+        foreach (json_decode($output) as $item) {
             $itemToArray = explode('>>>', $item->name);
             if ($itemToArray[0] == 'user') {
                 $server = explode("_", $itemToArray[1])[1];
@@ -56,7 +54,7 @@ class CalculateStats extends Command
             }
         }
 
-        Log::info(json_encode($output));
+        Log::info(($output));
         Log::info(json_encode($users));
 
 //        Http::withHeaders([
