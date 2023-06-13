@@ -6,6 +6,7 @@ use App\Models\Inbound;
 use App\Models\Setting;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class GetServerLists extends Command
 {
@@ -37,6 +38,8 @@ class GetServerLists extends Command
                 "node_id" => "74"
             ])
             ->json()['data'];
+
+        Log::info(json_encode($configs));
 
         $filteredConfigs = array_filter($configs, function ($el) {
             return $el->config_flag == config('v2board.server_flag');
