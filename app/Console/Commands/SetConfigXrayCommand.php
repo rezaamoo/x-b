@@ -66,7 +66,7 @@ class SetConfigXrayCommand extends Command
                 $u = (object)[];
                 foreach ($users as &$user) {
                     $u->id = $user->uuid;
-                    $u->email = $user->email. "_" . $config['tag'];
+                    $u->email = $user->email . "_" . $config['tag'];
                     $u->level = 0;
                     $u->alterId = 64;
                     $config['settings']['clients'][] = $u;
@@ -93,6 +93,18 @@ class SetConfigXrayCommand extends Command
             foreach ($inConfs as $config) {
                 $configData['inbounds'][] = (object)$config;
             }
+
+            $configData['levels'] = (object)[
+                "0" => (object)[
+                    "handshake" => 10,
+                    "connIdle" => 100,
+                    "uplinkOnly" => 2,
+                    "downlinkOnly" => 3,
+                    "statsUserUplink" => true,
+                    "statsUserDownlink" => true,
+                    "bufferSize" => 10240
+                ]
+            ];
 
             Log::info(json_encode($configData));
 
