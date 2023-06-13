@@ -38,8 +38,6 @@ class CalculateStats extends Command
             $item = (object)$item;
             $itemToArray = explode('>>>', $item->name);
 
-            Log::info(json_encode($itemToArray));
-
             if ($itemToArray[0] == 'user') {
                 $server = explode("_", $itemToArray[1])[1];
                 if ($itemToArray[3] == 'downlink') {
