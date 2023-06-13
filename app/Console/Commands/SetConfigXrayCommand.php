@@ -61,12 +61,13 @@ class SetConfigXrayCommand extends Command
                 $inboundConfigs[] = $inboundConfig;
             }
 
+            $inConfs = [];
             foreach ($inboundConfigs as $config) {
                 foreach ($users as &$user) {
                     $user->email = $user->email . "_" . $config['tag'];
                     $config['settings']['clients'][] = $user;
 
-                    Log::info(json_encode($config['settings']['clients']));
+                    $inConfs[] = $config;
                 }
             }
 
@@ -85,7 +86,7 @@ class SetConfigXrayCommand extends Command
                 "tag" => "api"
             ];
 
-            foreach ($inboundConfigs as $config) {
+            foreach ($inConfs as $config) {
                 $configData['inbounds'][] = (object)$config;
             }
 
