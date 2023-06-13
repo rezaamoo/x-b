@@ -12,7 +12,7 @@ class TestCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'command:name';
+    protected $signature = 'test:xray';
 
     /**
      * The console command description.
@@ -28,7 +28,7 @@ class TestCommand extends Command
      */
     public function handle()
     {
-        $command = "sudo /usr/local/bin/xray api statsquery --server=127.0.0.1:8080 -pattern '' -reset";
+        $command = "sudo /usr/local/bin/xray api statsquery --server=127.0.0.1:8082 -pattern '' -reset";
         $output = shell_exec($command);
 
         Log::info(json_encode($output));

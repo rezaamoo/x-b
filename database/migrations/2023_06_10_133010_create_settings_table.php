@@ -16,6 +16,9 @@ return new class extends Migration {
             $table->id();
 
             $table->boolean('need_reset')->default(false);
+            $table->boolean('changed_users')->default(false);
+            $table->boolean('changed_servers')->default(false);
+            $table->integer('process_id')->default(0);
 
             $table->timestamps();
         });
