@@ -6,6 +6,7 @@ use App\Models\Client;
 use App\Models\Setting;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class GetUserLists extends Command
 {
@@ -39,6 +40,9 @@ class GetUserLists extends Command
             ->json()['users'];
 
         $needToBeReset = false;
+
+        Log::info(json_encode($users));
+
         foreach ($users as $user) {
             $user = (object)$user;
             $updateOrCreatedUser = Client::query()->updateOrCreate([
