@@ -31,7 +31,7 @@ class GetUserLists extends Command
     public function handle()
     {
         $users = Http::retry(10, 1000)
-            ->post(config('v2board.base_url') . "/server/UniProxy/user", [
+            ->post(config('v2board.base_url') . "/v2manager/server/UniProxy/user", [
                 "token" => "nvFDdx8MvBXK4SduouKQEZ4xZD",
                 "node_type" => "v2ray",
                 "node_id" => "74"
