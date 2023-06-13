@@ -30,9 +30,12 @@ class GetServerLists extends Command
      */
     public function handle()
     {
-        $configs = Http::withHeaders()
-            ->retry(10, 1000)
-            ->get(config('v2board.base_url') . "/server/UniProxy/allServers")
+        $configs = Http::retry(10, 1000)
+            ->post(config('v2board.base_url') . "/server/UniProxy/allServers", [
+                "token" => "nvFDdx8MvBXK4SduouKQEZ4xZD",
+                "node_type" => "v2ray",
+                "node_id" => "74"
+            ])
             ->json()['data'];
 
         $filteredConfigs = array_filter($configs, function ($el) {
