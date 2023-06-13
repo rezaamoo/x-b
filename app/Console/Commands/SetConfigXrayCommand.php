@@ -45,8 +45,8 @@ class SetConfigXrayCommand extends Command
             foreach ($servers as $server) {
                 $inboundConfig = [
                     "listen" => "0.0.0.0",
-                    "port" => 1234,
-                    "protocol" => "vmess",
+                    "port" => $server->port,
+                    "protocol" => $server->protocol,
                     "settings" => [
                         "clients" => [
                         ]
@@ -107,8 +107,6 @@ class SetConfigXrayCommand extends Command
             ];
             $configData['stats'] = (object)[];
 
-            Log::info(json_encode($configData));
-
             $configJson = json_encode($configData, JSON_PRETTY_PRINT);
             file_put_contents($configFilePath, $configJson);
 
@@ -118,11 +116,11 @@ class SetConfigXrayCommand extends Command
                 'changed_servers' => false
             ]);
 
-//            $commandKill = 'sudo kill -SIGHUP $(pgrep xray)';
-//            $commandRun = 'sudo /usr/local/bin/xray run -c /var/www/x-b/app/config.json > /dev/null 2>&1 &';
-//            shell_exec($commandKill);
-//            sleep(3);
-//            shell_exec($commandRun);
+            $commandKill = 'sudo kill -SIGHUP $(pgrep xray)';
+            $commandRun = 'sudo /usr/local/bin/xray run -c /var/www/x-b/app/config.json > /dev/null 2>&1 &';
+            shell_exec($commandKill);
+            sleep(3);
+            shell_exec($commandRun);
 //
 //            $pid = shell_exec('pgrep -n "sudo /usr/local/bin/xray run -c /var/www/x-b/app/config.json"');
 //
