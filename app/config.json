@@ -1,0 +1,56 @@
+{
+    "log": {
+        "loglevel": "warning"
+    },
+    "api": {
+        "services": [
+            "HandlerService",
+            "LoggerService",
+            "StatsService"
+        ],
+        "tag": "api"
+    },
+    "routing": {
+        "rules": [
+            {
+                "inboundTag": [
+                    "api"
+                ],
+                "outboundTag": "api",
+                "type": "field"
+            }
+        ],
+        "domainStrategy": "AsIs"
+    },
+    "inbounds": [
+    ],
+    "outbounds": [
+        {
+            "protocol": "freedom",
+            "tag": "direct"
+        },
+        {
+            "protocol": "blackhole",
+            "tag": "block"
+        }
+    ],
+    "policy": {
+        "levels": {
+            "0": {
+                "handshake": 10,
+                "connIdle": 100,
+                "uplinkOnly": 2,
+                "downlinkOnly": 3,
+                "statsUserUplink": true,
+                "statsUserDownlink": true,
+                "bufferSize": 10240
+            }
+        },
+        "system": {
+            "statsInboundDownlink": true,
+            "statsInboundUplink": true
+        }
+    },
+    "stats": {}
+}
+

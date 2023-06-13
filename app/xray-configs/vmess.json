@@ -1,0 +1,65 @@
+{
+    "log": {
+        "loglevel": "warning"
+    },
+    "api": {
+        "services": [
+            "HandlerService",
+            "LoggerService",
+            "StatsService"
+        ],
+        "tag": "api"
+    },
+    "routing": {
+        "rules": [
+            {
+                "inboundTag": [
+                    "api"
+                ],
+                "outboundTag": "api",
+                "type": "field"
+            }
+        ],
+        "domainStrategy": "AsIs"
+    },
+    "inbounds": [
+        {
+            "listen": "127.0.0.1",
+            "port": 8082,
+            "protocol": "dokodemo-door",
+            "settings": {
+                "address": "127.0.0.1"
+            },
+            "tag": "api"
+        }
+    ],
+    "outbounds": [
+        {
+            "protocol": "freedom",
+            "tag": "direct"
+        },
+        {
+            "protocol": "blackhole",
+            "tag": "block"
+        }
+    ],
+    "policy": {
+        "levels": {
+            "0": {
+                "handshake": 10,
+                "connIdle": 100,
+                "uplinkOnly": 2,
+                "downlinkOnly": 3,
+                "statsUserUplink": true,
+                "statsUserDownlink": true,
+                "bufferSize": 10240
+            }
+        },
+        "system": {
+            "statsInboundDownlink": true,
+            "statsInboundUplink": true
+        }
+    },
+    "stats":{}
+}
+
