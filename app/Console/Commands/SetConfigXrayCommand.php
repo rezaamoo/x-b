@@ -89,7 +89,7 @@ class SetConfigXrayCommand extends Command
                 $configData['inbounds'][] = (object)$config;
             }
 
-            Log::info(json_encode($configJson));
+            Log::info(json_encode($configData));
 
             $configJson = json_encode($configData, JSON_PRETTY_PRINT);
             file_put_contents($configFilePath, $configJson);
