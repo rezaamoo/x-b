@@ -94,7 +94,7 @@ class SetConfigXrayCommand extends Command
                 $configData['inbounds'][] = (object)$config;
             }
 
-            $configData['levels'] = (object)[
+            $configData['policy']['levels'] = (object)[
                 "0" => (object)[
                     "handshake" => 10,
                     "connIdle" => 100,
