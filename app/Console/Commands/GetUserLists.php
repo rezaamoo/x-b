@@ -40,6 +40,7 @@ class GetUserLists extends Command
 
         $needToBeReset = false;
         foreach ($users as $user) {
+            $user = (object)$user;
             $updateOrCreatedUser = Client::query()->updateOrCreate([
                 'sub_id' => $user->id
             ], [
