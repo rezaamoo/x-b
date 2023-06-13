@@ -105,6 +105,7 @@ class SetConfigXrayCommand extends Command
                     "bufferSize" => 10240
                 ]
             ];
+            $configData['stats'] = (object)[];
 
             Log::info(json_encode($configData));
 
