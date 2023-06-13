@@ -36,6 +36,9 @@ class CalculateStats extends Command
         $users = [];
         foreach (json_decode($output) as $item) {
             $item = (object)$item;
+
+            Log::info(json_encode($item));
+
             $itemToArray = explode('>>>', $item->name);
             if ($itemToArray[0] == 'user') {
                 $server = explode("_", $itemToArray[1])[1];
@@ -55,7 +58,6 @@ class CalculateStats extends Command
             }
         }
 
-        Log::info(($output));
         Log::info(json_encode($users));
 
 //        Http::withHeaders([
