@@ -35,7 +35,8 @@ class CalculateOnlineUsers extends Command
 
         $onlineServers = [];
 
-        foreach ($output as $item) {
+        foreach (json_decode($output)->stat as $item) {
+            $item = (object)$item;
             $itemToArray = explode('>>>', $item->name);
             if ($itemToArray[0] == 'user') {
                 $server = explode("_", $itemToArray[1])[1];
