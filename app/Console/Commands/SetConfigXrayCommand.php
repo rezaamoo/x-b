@@ -101,11 +101,11 @@ class SetConfigXrayCommand extends Command
             sleep(3);
             shell_exec($commandRun);
 
-            $pid = shell_exec('pgrep -n "sudo /usr/local/bin/xray run -c /var/www/x-b/app/config.json"');
-
-            Setting::query()->first()->update([
-                'process_id' => $pid
-            ]);
+//            $pid = shell_exec('pgrep -n "sudo /usr/local/bin/xray run -c /var/www/x-b/app/config.json"');
+//
+//            Setting::query()->first()->update([
+//                'process_id' => $pid
+//            ]);
         }
     }
 }
