@@ -50,7 +50,7 @@ class GetRemovedUserLists extends Command
                 'sub_id' => $user->sub_id,
                 'uuid' => $user->uuid,
                 'banned' => $user->banned,
-                'email' => $user->id . "@xrayback.xray",
+                'email' => $user->sub_id . "@xrayback.xray",
                 'level' => 0,
                 'alterId' => 64,
             ]);
