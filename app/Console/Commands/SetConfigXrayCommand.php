@@ -68,7 +68,7 @@ class SetConfigXrayCommand extends Command
                     $u->id = $user->uuid;
                     $u->email = $user->email . "_" . $config['tag'];
                     $u->level = 0;
-                    $u->alterId = 64;
+                    $u->alterId = 0;
                     $config['settings']['clients'][] = $u;
 
                     $inConfs[] = $config;
@@ -97,13 +97,13 @@ class SetConfigXrayCommand extends Command
 
             $configData['policy']['levels'] = (object)[
                 "0" => (object)[
-                    "handshake" => 10,
-                    "connIdle" => 100,
-                    "uplinkOnly" => 2,
-                    "downlinkOnly" => 3,
+                    "handshake" => 8,
+                    "connIdle" => 600,
+                    "uplinkOnly" => 3,
+                    "downlinkOnly" => 5,
                     "statsUserUplink" => true,
                     "statsUserDownlink" => true,
-                    "bufferSize" => 10240
+                    "bufferSize" => 50
                 ]
             ];
             $configData['stats'] = (object)[];
