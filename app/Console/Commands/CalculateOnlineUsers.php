@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Http;
 
 class CalculateOnlineUsers extends Command
 {
@@ -31,21 +32,33 @@ class CalculateOnlineUsers extends Command
         $output = shell_exec($command);
 
         $users = [];
+
+        $onlineServers = [];
+
         foreach ($output as $item) {
             $itemToArray = explode('>>>', $item->name);
             if ($itemToArray[0] == 'user') {
                 $server = explode("_", $itemToArray[1])[1];
                 if ($itemToArray[3] == 'downlink') {
                     $item->value ? $online = 1 : $online = 0;
+                    $subId = str_replace('@xrayback.xray', '', explode("_", $itemToArray[1])[0]);
                     $users[] = [
-                        'sub_id' => str_replace('@xrayback.xray', '', explode("_", $itemToArray[1])[0]),
+                        'sub_id' => $subId,
                         'server' => $server,
                         'online' => $online
                     ];
+
+                    $onlineServers[$server]['count']++;
+                    $onlineServers[$server]['users'][] = $subId;
                 }
             }
         }
 
-        return $users;
+
+        Http::withHeaders([
+            'auth_token' => ''
+        ])
+            ->retry(10, 1000)
+            ->post(config('v2board.base_url') . "/server/UniProxy/online_users_on_servers", $onlineServers);
     }
 }

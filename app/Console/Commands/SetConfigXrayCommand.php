@@ -95,7 +95,17 @@ class SetConfigXrayCommand extends Command
                 'changed_servers' => false
             ]);
 
-            // reset here
+            $commandKill = 'sudo kill -SIGHUP $(pgrep xray)';
+            $commandRun = 'sudo /usr/local/bin/xray run -c /var/www/x-b/app/config.json > /dev/null 2>&1 &';
+            shell_exec($commandKill);
+            sleep(3);
+            shell_exec($commandRun);
+
+            $pid = shell_exec('pgrep -n "sudo /usr/local/bin/xray run -c /var/www/x-b/app/config.json"');
+
+            Setting::query()->first()->update([
+                'process_id' => $pid
+            ]);
         }
     }
 }

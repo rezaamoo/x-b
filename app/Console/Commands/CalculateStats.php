@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Models\Client;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Http;
 
 class CalculateStats extends Command
 {
@@ -52,6 +53,10 @@ class CalculateStats extends Command
             }
         }
 
-        return $users;
+        Http::withHeaders([
+            'auth_token' => ''
+        ])
+            ->retry(10, 1000)
+            ->post(config('v2board.base_url') . "/server/UniProxy/users_stats", $users);
     }
 }

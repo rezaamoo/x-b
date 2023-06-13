@@ -29,6 +29,8 @@ class TestCommand extends Command
     public function handle()
     {
         $command = "sudo /usr/local/bin/xray api statsquery --server=127.0.0.1:8082 -pattern '' -reset";
+        $command1 = 'sudo kill -SIGHUP $(pgrep xray)';
+        $command2 = 'sudo /usr/local/bin/xray run -c /var/www/Xray-install/config.json > /dev/null 2>&1 &';
         $output = shell_exec($command);
 
         Log::info(json_encode($output));
