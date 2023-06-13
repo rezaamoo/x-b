@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Models\Client;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class CalculateStats extends Command
 {
@@ -29,7 +30,7 @@ class CalculateStats extends Command
      */
     public function handle()
     {
-        $command = "sudo /usr/local/bin/xray api statsquery --server=127.0.0.1:8080 -pattern '' -reset";
+        $command = "sudo /usr/local/bin/xray api statsquery --server=127.0.0.1:8082 -pattern '' -reset";
         $output = shell_exec($command);
 
         $users = [];
@@ -53,10 +54,13 @@ class CalculateStats extends Command
             }
         }
 
-        Http::withHeaders([
-            'auth_token' => ''
-        ])
-            ->retry(10, 1000)
-            ->post(config('v2board.base_url') . "/server/UniProxy/users_stats", $users);
+        Log::info(json_encode($output));
+        Log::info(json_encode($users));
+
+//        Http::withHeaders([
+//            'auth_token' => ''
+//        ])
+//            ->retry(10, 1000)
+//            ->post(config('v2board.base_url') . "/server/UniProxy/users_stats", $users);
     }
 }
