@@ -32,7 +32,7 @@ class GetServerLists extends Command
     {
         $configs = Http::withHeaders()
             ->retry(10, 1000)
-            ->get(config('v2board.base_url') . "/server/UniProxy/all-servers")
+            ->get(config('v2board.base_url') . "/server/UniProxy/allServers")
             ->json()['data'];
 
         $filteredConfigs = array_filter($configs, function ($el) {
@@ -42,6 +42,7 @@ class GetServerLists extends Command
         $filteredNodeIds = [];
         $needToBeReset = false;
         foreach ($filteredConfigs as $config) {
+            $config = (object)$config;
             $filteredNodeIds[] = $config->node_id;
             $updateOrCreatedConfig = Inbound::query()->updateOrCreate([
                 'node_id' => $config->node_id
@@ -78,7 +79,7 @@ class GetServerLists extends Command
         if ($needToBeReset) {
             Setting::query()->first()->update([
                 'need_reset' => true,
-                'changed_servers'=>true
+                'changed_servers' => true
             ]);
         }
     }
