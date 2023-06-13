@@ -26,7 +26,7 @@ return new class extends Migration {
             $table->json('stream_settings')->nullable();
             $table->json('network_settings')->nullable();
             $table->json('tls_settings')->nullable();
-            $table->json('rule_Settings')->nullable();
+            $table->json('rule_settings')->nullable();
             $table->json('dns_settings')->nullable();
             $table->json('rules')->nullable();
 

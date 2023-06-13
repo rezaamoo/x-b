@@ -62,7 +62,7 @@ class GetServerLists extends Command
                 'stream_settings' => json_encode($config->stream_settings),
                 'network_settings' => json_encode($config->network_settings),
                 'tls_settings' => json_encode($config->tls_settings),
-                'rule_Settings' => json_encode($config->rule_Settings),
+                'rule_settings' => json_encode($config->rule_settings),
                 'dns_settings' => json_encode($config->dns_settings),
                 'rules' => json_encode($config->rules),
             ]);
