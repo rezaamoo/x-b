@@ -7,6 +7,7 @@ use App\Models\Inbound;
 use App\Models\Setting;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Log;
 
 class SetConfigXrayCommand extends Command
 {
@@ -64,8 +65,12 @@ class SetConfigXrayCommand extends Command
                 foreach ($users as &$user) {
                     $user->email = $user->email . "_" . $config['tag'];
                     $config['settings']['clients'][] = $user;
+
+                    Log::info(json_encode($config['settings']['clients']));
                 }
             }
+
+            Log::info(json_encode($configData));
 
             $configFilePath = storage_path('app/config.json');
             $configData = json_decode(file_get_contents($configFilePath), true);
@@ -95,12 +100,12 @@ class SetConfigXrayCommand extends Command
                 'changed_servers' => false
             ]);
 
-            $commandKill = 'sudo kill -SIGHUP $(pgrep xray)';
-            $commandRun = 'sudo /usr/local/bin/xray run -c /var/www/x-b/app/config.json > /dev/null 2>&1 &';
-            shell_exec($commandKill);
-            sleep(3);
-            shell_exec($commandRun);
-
+//            $commandKill = 'sudo kill -SIGHUP $(pgrep xray)';
+//            $commandRun = 'sudo /usr/local/bin/xray run -c /var/www/x-b/app/config.json > /dev/null 2>&1 &';
+//            shell_exec($commandKill);
+//            sleep(3);
+//            shell_exec($commandRun);
+//
 //            $pid = shell_exec('pgrep -n "sudo /usr/local/bin/xray run -c /var/www/x-b/app/config.json"');
 //
 //            Setting::query()->first()->update([
