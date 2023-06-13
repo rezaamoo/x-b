@@ -39,10 +39,8 @@ class GetServerLists extends Command
             ])
             ->json()['data'];
 
-        Log::info(json_encode($configs));
-
         $filteredConfigs = array_filter($configs, function ($el) {
-            return $el->config_flag == config('v2board.server_flag');
+            return $el['config_flag'] == config('v2board.server_flag');
         });
 
         $filteredNodeIds = [];
