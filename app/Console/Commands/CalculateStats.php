@@ -56,14 +56,14 @@ class CalculateStats extends Command
             }
         }
 
-        Log::info($users);
+        Log::info(json_encode($users));
 
-        Http::retry(10, 1000)
-            ->post(config('v2board.base_url') . "/server/UniProxy/users_stats", [
-                'users' => $users,
-                "token" => "nvFDdx8MvBXK4SduouKQEZ4xZD",
-                "node_type" => "v2ray",
-                "node_id" => "74"
-            ]);
+//        Http::retry(10, 1000)
+//            ->post(config('v2board.base_url') . "/server/UniProxy/users_stats", [
+//                'users' => $users,
+//                "token" => "nvFDdx8MvBXK4SduouKQEZ4xZD",
+//                "node_type" => "v2ray",
+//                "node_id" => "74"
+//            ]);
     }
 }

@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class CalculateOnlineUsers extends Command
 {
@@ -56,12 +57,14 @@ class CalculateOnlineUsers extends Command
         }
 
 
-        Http::retry(10, 1000)
-            ->post(config('v2board.base_url') . "/server/UniProxy/online_users_on_servers", [
-                'servers' => $onlineServers,
-                "token" => "nvFDdx8MvBXK4SduouKQEZ4xZD",
-                "node_type" => "v2ray",
-                "node_id" => "74"
-            ]);
+        Log::info(json_encode($onlineServers));
+
+//        Http::retry(10, 1000)
+//            ->post(config('v2board.base_url') . "/server/UniProxy/online_users_on_servers", [
+//                'servers' => $onlineServers,
+//                "token" => "nvFDdx8MvBXK4SduouKQEZ4xZD",
+//                "node_type" => "v2ray",
+//                "node_id" => "74"
+//            ]);
     }
 }
