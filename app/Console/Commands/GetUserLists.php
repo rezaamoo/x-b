@@ -41,14 +41,12 @@ class GetUserLists extends Command
 
         $needToBeReset = false;
 
-        Log::info(json_encode($users));
-
         foreach ($users as $user) {
             $user = (object)$user;
             $updateOrCreatedUser = Client::query()->updateOrCreate([
-                'sub_id' => $user->id
+                'sub_id' => $user->sub_id
             ], [
-                'sub_id' => $user->id,
+                'sub_id' => $user->sub_id,
                 'uuid' => $user->uuid,
                 'banned' => $user->banned,
                 'email' => $user->id . "@xrayback.xray",
