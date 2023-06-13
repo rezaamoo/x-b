@@ -117,7 +117,7 @@ class SetConfigXrayCommand extends Command
             ]);
 
             $commandKill = 'sudo kill -SIGHUP $(pgrep xray)';
-            $commandRun = 'sudo /usr/local/bin/xray run -c /var/www/x-b/app/config.json > /dev/null 2>&1 &';
+            $commandRun = 'sudo /usr/local/bin/xray run -c /var/www/x-b/storage/app/config.json > /dev/null 2>&1 &';
             shell_exec($commandKill);
             sleep(3);
             shell_exec($commandRun);
