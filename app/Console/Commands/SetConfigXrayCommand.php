@@ -70,8 +70,6 @@ class SetConfigXrayCommand extends Command
                 }
             }
 
-            Log::info(json_encode($configData));
-
             $configFilePath = storage_path('app/config.json');
             $configData = json_decode(file_get_contents($configFilePath), true);
 
@@ -90,6 +88,8 @@ class SetConfigXrayCommand extends Command
             foreach ($inboundConfigs as $config) {
                 $configData['inbounds'][] = (object)$config;
             }
+
+            Log::info(json_encode($configJson));
 
             $configJson = json_encode($configData, JSON_PRETTY_PRINT);
             file_put_contents($configFilePath, $configJson);
