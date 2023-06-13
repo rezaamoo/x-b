@@ -109,7 +109,7 @@ class SetConfigXrayCommand extends Command
             $configData['stats'] = (object)[];
 
             $configJson = json_encode($configData, JSON_PRETTY_PRINT);
-            file_put_contents($configFilePath, $configJson);
+            file_put_contents(storage_path('app/config.json'), $configJson);
 
             Setting::query()->first()->update([
                 'need_reset' => false,
