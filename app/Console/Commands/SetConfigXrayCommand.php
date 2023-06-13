@@ -65,6 +65,7 @@ class SetConfigXrayCommand extends Command
             foreach ($inboundConfigs as $config) {
                 foreach ($users as &$user) {
                     $user->email = $user->email . "_" . $config['tag'];
+                    $user->id = $user->uuid;
                     $config['settings']['clients'][] = $user;
 
                     $inConfs[] = $config;
