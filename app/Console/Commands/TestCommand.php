@@ -33,6 +33,6 @@ class TestCommand extends Command
         $command2 = 'sudo /usr/local/bin/xray run -c /var/www/Xray-install/config.json > /dev/null 2>&1 &';
 
 
-        Log::info(base_path());
+        Log::info(base_path() . "/app/config.json");
     }
 }

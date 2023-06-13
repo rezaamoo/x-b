@@ -75,7 +75,8 @@ class SetConfigXrayCommand extends Command
                 }
             }
 
-            $configFilePath = storage_path('app/config.json');
+//            $configFilePath = storage_path('app/config.json');
+            $configFilePath = base_path() . "/app/config.json";
             $configData = json_decode(file_get_contents($configFilePath), true);
 
             $configData['inbounds'] = (array)[];

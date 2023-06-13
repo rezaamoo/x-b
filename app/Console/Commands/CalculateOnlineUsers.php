@@ -56,10 +56,12 @@ class CalculateOnlineUsers extends Command
         }
 
 
-        Http::withHeaders([
-            'auth_token' => ''
-        ])
-            ->retry(10, 1000)
-            ->post(config('v2board.base_url') . "/server/UniProxy/online_users_on_servers", $onlineServers);
+        Http::retry(10, 1000)
+            ->post(config('v2board.base_url') . "/server/UniProxy/online_users_on_servers", [
+                'servers' => $onlineServers,
+                "token" => "nvFDdx8MvBXK4SduouKQEZ4xZD",
+                "node_type" => "v2ray",
+                "node_id" => "74"
+            ]);
     }
 }
