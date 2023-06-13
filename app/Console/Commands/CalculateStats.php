@@ -34,11 +34,8 @@ class CalculateStats extends Command
         $output = shell_exec($command);
 
         $users = [];
-        foreach (json_decode($output) as $item) {
+        foreach (json_decode($output)->stat as $item) {
             $item = (object)$item;
-
-            Log::info(json_encode($item));
-
             $itemToArray = explode('>>>', $item->name);
             if ($itemToArray[0] == 'user') {
                 $server = explode("_", $itemToArray[1])[1];
