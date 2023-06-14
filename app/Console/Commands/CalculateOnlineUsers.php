@@ -29,7 +29,7 @@ class CalculateOnlineUsers extends Command
      */
     public function handle()
     {
-        $command = "sudo /usr/local/bin/xray api statsquery --server=127.0.0.1:8080 -pattern '' -reset";
+        $command = "sudo /usr/local/bin/xray api statsquery --server=127.0.0.1:8082 -pattern '' -reset";
         $output = shell_exec($command);
 
         $users = [];
