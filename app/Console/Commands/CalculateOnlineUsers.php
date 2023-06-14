@@ -41,6 +41,14 @@ class CalculateOnlineUsers extends Command
             $itemToArray = explode('>>>', $item->name);
             if ($itemToArray[0] == 'user') {
                 $server = explode("_", $itemToArray[1])[1];
+
+                if (!isset($onlineServers[$server])) {
+                    $onlineServers[$server] = [
+                        'count' => 0,
+                        'users' => []
+                    ];
+                }
+
                 if ($itemToArray[3] == 'downlink') {
                     $item->value ? $online = 1 : $online = 0;
                     $subId = str_replace('@xrayback.xray', '', explode("_", $itemToArray[1])[0]);
