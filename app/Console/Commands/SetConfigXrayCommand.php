@@ -43,20 +43,53 @@ class SetConfigXrayCommand extends Command
 
             $inboundConfigs = [];
             foreach ($servers as $server) {
-                $inboundConfig = [
-                    "listen" => "0.0.0.0",
-                    "port" => $server->port,
-                    "protocol" => $server->protocol,
-                    "settings" => [
-                        "clients" => [
-                        ]
-                    ],
-                    "streamSettings" => [
-                        "network" => "ws",
-                        "security" => "none"
-                    ],
-                    "tag" => $server->tag
-                ];
+                if (config('which_config') == 'ws') {
+                    $inboundConfig = [
+                        "listen" => "0.0.0.0",
+                        "port" => $server->port,
+                        "protocol" => $server->protocol,
+                        "settings" => [
+                            "clients" => [
+                            ]
+                        ],
+                        "streamSettings" => [
+                            "network" => "ws",
+                            "security" => "none"
+                        ],
+                        "tag" => $server->tag
+                    ];
+                } elseif (config('which_config') == 'reality') {
+                    $inboundConfig = [
+                        "listen" => "0.0.0.0",
+                        "port" => 2052,
+                        "protocol" => 'vless',
+                        "settings" => [
+                            "decryption" => 'none',
+                            "clients" => [
+                            ]
+                        ],
+                        "streamSettings" => [
+                            "network" => "grpc",
+                            "security" => "reality",
+                            "realitySettings" => [
+                                "show" => false,
+                                "dest" => "www.google.com",
+                                "xver" => 0,
+                                "serverNames" => ["www.google.com"],
+                                "privateKey" => "kOsBHSgxhAfCeQIQyJvupiXTmQrMmsqi6y6Wc5OQZXc",
+                                "shortIds" => ["a6051a6d"]
+                            ],
+                            "grpcSettings" => [
+                                "serviceName" => ""
+                            ]
+                        ],
+                        "sniffing" => [
+                            "enabled" => true,
+                            "destOverride" => ["http", "tls", "quic"]
+                        ],
+                        "tag" => $server->tag
+                    ];
+                }
 
                 $inboundConfigs[] = $inboundConfig;
             }

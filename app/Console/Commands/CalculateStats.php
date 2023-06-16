@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\Client;
+use App\Models\Stat;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
@@ -56,7 +57,10 @@ class CalculateStats extends Command
             }
         }
 
-        Log::info(json_encode($users));
+
+        foreach ($users as $user) {
+            Stat::query()->create($user);
+        }
 
 //        Http::retry(10, 1000)
 //            ->post(config('v2board.base_url') . "/server/UniProxy/users_stats", [
