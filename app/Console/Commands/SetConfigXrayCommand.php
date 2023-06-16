@@ -43,7 +43,7 @@ class SetConfigXrayCommand extends Command
 
             $inboundConfigs = [];
             foreach ($servers as $server) {
-                if (config('which_config') == 'ws') {
+                if (config('v2board.which_config') == 'ws') {
                     $inboundConfig = [
                         "listen" => "0.0.0.0",
                         "port" => $server->port,
@@ -58,7 +58,7 @@ class SetConfigXrayCommand extends Command
                         ],
                         "tag" => $server->tag
                     ];
-                } elseif (config('which_config') == 'reality') {
+                } elseif (config('v2board.which_config') == 'reality') {
                     $inboundConfig = [
                         "listen" => "0.0.0.0",
                         "port" => 2052,
